@@ -1,0 +1,54 @@
+<!doctype html>
+
+<!-- https://www.youtube.com/watch?v=RfMkdvN-23o -->
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Untitled Document</title>
+    </head>
+    
+    <body>
+        
+        <div id="myDiv">
+        </div>
+        
+        <script>
+    
+            getData(); //call function
+            
+            async function getData(){ //define an asynchronous function
+
+                var response = await fetch('covid.csv'); //call data and assign it to a variable
+                var data = await response.text(); //parse the text from the response and assign it to variable
+                
+                console.log(data);
+                
+                var table = data.split('\n').slice(1); //delineate rows of the table by splitting them at the line break. This results in an array such as: [0] Alaska, 12, 1.33 etc
+                    
+                console.log(table);
+
+                table.forEach(row => {
+                    var columns = row.split(','); 
+                    var state = columns[0];
+                    var deaths = columns[1];
+                    var deathsPer = columns[2];
+                    
+                    console.log(state, deaths, deathsPer);
+                             
+                    document.getElementById("myDiv").innerHTML = 
+                    state + 
+                    " death toll is " + 
+                    deaths + 
+                    " and a death rate of " + 
+                    deathsPer
+                    ;
+                });
+            }
+            
+
+            
+        </script>
+        
+    </body>
+</html>
