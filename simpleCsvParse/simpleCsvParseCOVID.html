@@ -20,12 +20,10 @@
             async function getData(){ //define an asynchronous function
 
                 var response = await fetch('covid.csv'); //call data and assign it to a variable
-                var data = await response.text(); //parse the text from the response and assign it to variable
-                
+                var data = await response.text(); //parse the text from the response and assign it to variable    
                 console.log(data);
                 
-                var table = data.split('\n').slice(1); //delineate rows of the table by splitting them at the line break. This results in an array such as: [0] Alaska, 12, 1.33 etc
-                    
+                var table = data.split('\n').slice(1, -1); //delineate rows of the table by splitting them at the line break. This results in an array such as: [0] Alaska, 12, 1.33 etc
                 console.log(table);
 
                 table.forEach(row => {
@@ -33,7 +31,6 @@
                     var state = columns[0];
                     var deaths = columns[1];
                     var deathsPer = columns[2];
-                    
                     console.log(state, deaths, deathsPer);
                              
                     document.getElementById("myDiv").innerHTML = 
